@@ -4,7 +4,7 @@ import {Text, View,ImageBackground,Dimensions,TextInput,Image,Button,Modal, Touc
 
 const Serv_PORT=4000;
 
-export default class OngoingNumber extends Component{
+export default class OngoingDetails extends Component{
     constructor(props){
         super(props);
 
@@ -12,12 +12,10 @@ export default class OngoingNumber extends Component{
             resultsArr:[],
             results:false,
             DoctorName:'',
-            DoctorSpec:'',
-            Hospital: ''
+            DoctorSpec:''
         };
 
         this.onChangeName = this.onChangeName.bind(this);
-        this.onChangeHospital = this.onChangeHospital.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.SearchDoctor = this.SearchDoctor.bind(this);
     }
@@ -31,11 +29,6 @@ export default class OngoingNumber extends Component{
     onChangeName(e){
         this.setState({
             DoctorName:e.nativeEvent.text
-        })
-    }
-    onChangeHospital(e){
-        this.setState({
-            Hospital:e.nativeEvent.text
         })
     }
     SearchDoctor(){
@@ -118,18 +111,15 @@ export default class OngoingNumber extends Component{
                     <Image source={require('../assets/Home/Logo.png')} style={styles.Logo} resizeMode={'contain'}/>
                 </View>
                 <View style={styles.View}>
-                <Text style={styles.TextHeading}>SEARCH ONGOING NUMBER</Text>
-                    <View style={styles.TextInputBox}>
-                        <Image source={require('../assets/Home/searchicon.png')} style={styles.InputBoxIcon} resizeMode={'stretch'}/>
-                        <TextInput style={styles.InputBox} onChange={this.onChangeName} value={this.state.DoctorName} placeholder={' Enter Doctor name here'} placeholderTextColor="#000"/>
-                       
-                    </View>
-                    <View style={styles.TextInputBox}>   
-                        <TextInput style={styles.InputBox} onChange={this.onChangeHospital} value={this.state.Hospital} placeholder={' Select Hospital'} placeholderTextColor="#000"/>   
-                    </View>
-                    <View style={styles.SearchBtn}>
-                        <Button title={'Search Doctor'} onPress={()=>{this.SearchDoctor()}} color={'#000000'} />
-                    </View>
+                <Text style={styles.TextHeading}>Doctor Search</Text>
+                <View style={styles.container}>
+                    <Text style = {{ fontWeight : 'bold'}}>
+                            <Text style = {{color: '#6b8e23' , fontSize : 20 }}>DOCTOR :</Text> <Text style = {{color: '#000000' , fontSize : 20 }}>R.M.NITHMALI</Text>{"\n"}
+							<Text style = {{color: '#6b8e23' ,fontSize : 20  }}>SPECIALIZATION :</Text> <Text style = {{color: '#000000' , fontSize : 20 }}> ENT SURGEON</Text>{"\n"}
+							<Text style = {{color: '#6b8e23' ,fontSize : 20  }}>HOSPITAL :</Text> <Text style = {{color: '#000000' , fontSize : 20 }}> ASIRI, HOSPITAL</Text>{"\n"}
+                            <Text style = {{color: '#6b8e23',fontSize : 20   }}>ONGOING NUMBER :</Text> <Text style = {{color: '#000000' , fontSize : 25,backgroundColor: '#cd5c5c' }}> 8</Text>
+					</Text>	
+                        </View>
                 </View>
             </ImageBackground>
 
@@ -139,6 +129,20 @@ export default class OngoingNumber extends Component{
 
 
 const styles={
+    container: {
+        
+        fontSize : 20,
+        fontWeight : 'bold', 
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+        backgroundColor: '#f0f8ff',
+		borderRadius: 8,
+		marginTop: 3,
+		marginLeft: 2.5,
+        marginRight: 2.5,
+        opacity :0.9
+	},
     LogoContainer:{
         justifyContent:'center',
         alignItems:'center'
@@ -156,11 +160,10 @@ const styles={
         backgroundColor:'black',
         opacity:0.5,
         width:(Dimensions.get('window').width/4)*3,
-        height:Dimensions.get('window').height/2.3,
+        height:Dimensions.get('window').height/3,
         borderColor: '#ffffff',
         borderRadius: 8,
         borderWidth: 0.5,
-      
         marginTop:Dimensions.get('window').height/2.5,
         marginLeft:(Dimensions.get('window').width/4)-(Dimensions.get('window').width/8)
     },
@@ -168,44 +171,15 @@ const styles={
         paddingLeft:(Dimensions.get('window').width/5),
         color:'white',
         fontWeight:'bold',
-        marginLeft:((Dimensions.get('window').width/4)*2 - (Dimensions.get('window').width/4)*2.6)/2,
+        // fontFamily:'sans-serif',
         textDecorationLine: 'underline',
-        fontSize:20,
+        fontSize:25,
         marginTop:Dimensions.get('window').height/20,
     },
-    TextInputBox:{
-        height:Dimensions.get('window').height/25,
-        marginTop:Dimensions.get('window').height/25,
-        marginLeft:(Dimensions.get('window').width/15),
-        width:(Dimensions.get('window').width/4)*2.4,
-        borderColor: 'black',
-        backgroundColor:'white',
-        borderWidth: 1,
-        borderRadius: 8,
-        shadowOffset:{  width: 10,  height: 10,  },
-        shadowColor: 'black',
-        shadowOpacity: 1.0,
-    },
-    InputBox:{
-        position:'absolute',
-        width:(Dimensions.get('window').width/4)*2,
-        color:'black',
-        marginTop:0,
-        marginLeft:(Dimensions.get('window').width/4)*2.4 - (Dimensions.get('window').width/4)*2
-    },
-    InputBoxIcon:{
-        height:Dimensions.get('window').height/25,
-        width:Dimensions.get('window').height/25
-    },
-    SearchBtn:{
-        backgroundColor:'#87cefa',
-        opacity : 0.9,
-        marginLeft:((Dimensions.get('window').width/4)*3 - (Dimensions.get('window').width/4)*2)/2,
-        marginTop:Dimensions.get('window').height/25,
-        width:(Dimensions.get('window').width/4)*2,
-        borderWidth:0.5,
-        borderRadius:8
-    },
+   
+   
+ 
+  
 };
 
 const ModalStyles={
