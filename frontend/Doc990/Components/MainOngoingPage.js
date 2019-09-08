@@ -1,10 +1,14 @@
 import React,{Component} from 'react';
 import axios from 'axios/index';
 import {Text, View,ImageBackground,Dimensions,TextInput,Image,Button,Modal, TouchableHighlight, Alert,ScrollView} from "react-native";
-
+import Dropdown from './Dropdown';
 const Serv_PORT=4000;
 
-export default class Home extends Component{
+export default class MainOngoingPage extends Component{
+    static navigationOptions =  {
+        //set title on phonescreen on the top view.
+            title: 'MY hh',
+        };
     constructor(props){
         super(props);
 
@@ -17,7 +21,7 @@ export default class Home extends Component{
 
         this.onChangeName = this.onChangeName.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
-        this.SearchDoctor = this.SearchDoctor.bind(this);
+        // this.SearchDoctor = this.SearchDoctor.bind(this);
     }
 
     toggleModal(){
@@ -31,34 +35,40 @@ export default class Home extends Component{
             DoctorName:e.nativeEvent.text
         })
     }
-    SearchDoctor(){
-        axios({
-            method: 'get',
-            url: 'http://10.0.2.2:'+Serv_PORT+'/doctor',
-            timeout: 3000, // Let's say you want to wait at least 180 seconds
-        }).then((res)=>{
-            this.setState({
-                resultsArr:res.data,
-                DoctorName:res.data[0].Name,
-                DoctorSpec:res.data[0].Specialization
-            });
-            this.toggleModal();
 
-        }).catch((err)=>{
-            if(err){
-                Alert.alert(
-                    "Error",
-                    err
-                );
-            }else{
-                Alert.alert(
-                    "Error",
-                    "Error Fetching data from the server. Please check the name and your internet connection"
-                );
-            }
-        });
-        console.log('Button Click: '+this.state.DoctorName);
-    }
+    checkOngoingNum =()=>{
+        this.props.navigation.navigate('OngoingDetails');
+
+    };
+    // SearchDoctor(){
+    //     axios({
+    //         method: 'get',
+    //         url: 'http://10.0.2.2:'+Serv_PORT+'/doctor',
+    //         timeout: 3000, // Let's say you want to wait at least 180 seconds
+    //     }).then((res)=>{
+    //         this.setState({
+    //             resultsArr:res.data,
+    //             DoctorName:res.data[0].Name,
+    //             DoctorSpec:res.data[0].Specialization
+    //         });
+    //         this.toggleModal();
+
+    //     }).catch((err)=>{
+    //         if(err){
+    //             Alert.alert(
+    //                 "Error",
+    //                 err
+    //             );
+    //         }else{
+    //             Alert.alert(
+    //                 "Error",
+    //                 "Error Fetching data from the server. Please check the name and your internet connection"
+    //             );
+    //         }
+    //     });
+    //     console.log('Button Click: '+this.state.DoctorName);
+
+    // }
 
     render() {
         let Results=this.state.resultsArr.map((result,key)=>{
@@ -111,13 +121,16 @@ export default class Home extends Component{
                     <Image source={require('../assets/Home/Logo.png')} style={styles.Logo} resizeMode={'contain'}/>
                 </View>
                 <View style={styles.View}>
-                <Text style={styles.TextHeading}>Doctor Search</Text>
+                <Text style={styles.TextHeading}>SEARCH ONGOING NUMBER</Text>
                     <View style={styles.TextInputBox}>
                         <Image source={require('../assets/Home/searchicon.png')} style={styles.InputBoxIcon} resizeMode={'stretch'}/>
                         <TextInput style={styles.InputBox} onChange={this.onChangeName} value={this.state.DoctorName} placeholder={' Enter Doctor name here'} placeholderTextColor="#000"/>
                     </View>
+                    <View style={styles.TextInputBox}>
+                    <TextInput style={styles.InputBox} onChange={this.onChangeName} value={this.state.DoctorName} placeholder={' Enter Doctor name here'} placeholderTextColor="#000"/><Dropdown />
+                    </View>
                     <View style={styles.SearchBtn}>
-                        <Button title={'Search Doctor'} onPress={()=>{this.SearchDoctor()}} color={'#7BA6EF'}/>
+                        <Button onPress = { this.checkOngoingNum }  title = 'CHECK' color={'#000000'}/>
                     </View>
                 </View>
             </ImageBackground>
@@ -145,7 +158,7 @@ const styles={
         backgroundColor:'black',
         opacity:0.5,
         width:(Dimensions.get('window').width/4)*3,
-        height:Dimensions.get('window').height/3,
+        height:Dimensions.get('window').height/2.5,
         borderColor: '#ffffff',
         borderRadius: 8,
         borderWidth: 0.5,
@@ -186,6 +199,13 @@ const styles={
         width:Dimensions.get('window').height/25
     },
     SearchBtn:{
+        // marginLeft:((Dimensions.get('window').width/4)*3 - (Dimensions.get('window').width/4)*2)/2,
+        // marginTop:Dimensions.get('window').height/25,
+        // width:(Dimensions.get('window').width/4)*2,
+        // borderWidth:0.5,
+        // borderRadius:8
+        backgroundColor:'#87cefa',
+        opacity : 0.9,
         marginLeft:((Dimensions.get('window').width/4)*3 - (Dimensions.get('window').width/4)*2)/2,
         marginTop:Dimensions.get('window').height/25,
         width:(Dimensions.get('window').width/4)*2,

@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { View, ImageBackground, Text, Dimensions, Image, Button, TextInput } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-export default class OngoingNumber extends Component {
-	static navigationOptions = {
-		//set title on phonescreen on the top view.
-		title: 'gg',
-	};
+export default class Example extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,14 +14,10 @@ export default class OngoingNumber extends Component {
 	SearchNumber = () => {
 		const { Number, hospital } = this.state;
 		if (Number == '') {
-			this.setState({ Error: 'The doctor name field is required.' });
+			alert('num');
 		} else if (hospital == '') {
-			this.setState({ Error: ' Select the hospital.' });
+			alert('uu');
 		} else {
-			this.setState({
-				hospital: '',
-				Number: '',
-			});
 			this.props.navigation.navigate('OngoingDetails');
 		}
 	};
@@ -66,50 +57,46 @@ export default class OngoingNumber extends Component {
 				</View>
 
 				<View style={styles.View}>
-					<KeyboardAwareScrollView>
-						<Text style={styles.TextHeading}>SEARCH ONGOING NUMBER</Text>
-						
-						<Text style={{ color: 'red', textAlign: 'center' }}>{this.state.Error}</Text>
-						<View style={styles.TextInputBox}>
-							<Image
-								source={require('../assets/man.png')}
-								style={styles.InputBoxIcon}
-								resizeMode={'stretch'}
-							/>
-							<TextInput
-								style={styles.InputBox}
-								onChangeText={Number => this.setState({ Number })}
-								placeholder={' Reference Number - Required'}
-								placeholderTextColor="#000"
-							/>
-						</View>
-						<Dropdown
-							style={{ marginLeft: Dimensions.get('window').width / 15, borderRadius: 8 }}
-							placeholder="select hospital"
-							// placeholderTextColor="black"
-							placeholderTextColor="black"
-							backgroundColor="white"
-							color="black"
-							itemTextStyle={{ textColor: 'black' }}
-							textAlign="center"
-							data={data}
-							onChangeText={hospital => this.setState({ hospital })}
+					<Text style={styles.TextHeading}>Download Booking Reciept</Text>
+					<View style={styles.TextInputBox}>
+						<Image
+							source={require('../assets/man.png')}
+							style={styles.InputBoxIcon}
+							resizeMode={'stretch'}
 						/>
-						{/* <Image
+						<TextInput
+							style={styles.InputBox}
+							onChangeText={Number => this.setState({ Number })}
+							placeholder={' Reference Number - Required'}
+							placeholderTextColor="#000"
+						/>
+					</View>
+					<Dropdown
+						style={{ marginLeft: Dimensions.get('window').width / 15, borderRadius: 8 }}
+						placeholder="select hospital"
+						// placeholderTextColor="black"
+						placeholderTextColor="black"
+						backgroundColor="white"
+						color="black"
+						itemTextStyle={{ textColor: 'black' }}
+						textAlign="center"
+						data={data}
+						onChangeText={hospital => this.setState({ hospital })}
+					/>
+					{/* <Image
 							source={require('../assets/man.png')}
 							style={styles.InputBoxIcon}
 							resizeMode={'stretch'}
             /> */}
-						<View style={styles.SearchBtn}>
-							<Button
-								title={'Search'}
-								onPress={() => {
-									this.SearchNumber();
-								}}
-								color={'#000000'}
-							/>
-						</View>
-					</KeyboardAwareScrollView>
+					<View style={styles.SearchBtn}>
+						<Button
+							title={'Search'}
+							onPress={() => {
+								this.SearchNumber();
+							}}
+							color={'#000000'}
+						/>
+					</View>
 				</View>
 			</ImageBackground>
 		);
@@ -135,7 +122,7 @@ const styles = {
 		backgroundColor: 'black',
 		opacity: 0.5,
 		width: (Dimensions.get('window').width / 4) * 3,
-		height: Dimensions.get('window').height / 2.4,
+		height: Dimensions.get('window').height / 2.6,
 		borderColor: '#ffffff',
 		borderRadius: 8,
 		borderWidth: 0.5,
