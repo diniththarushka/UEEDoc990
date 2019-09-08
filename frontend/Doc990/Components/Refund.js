@@ -1,13 +1,25 @@
-import React, {Component} from 'react';
-import {View,Text} from 'react-native';
+import React from 'react';
+import { createStackNavigator} from 'react-navigation';
+import MainActivity from './RefundSearch';
+import BankRefund from './BankRefund';
+import MobileRefund from './MobileRefund';
 
-export default class Refund extends Component {
-    render() {
-        return (
-            <View>
-                <Text>Hello Wqweq sdhjdsggfshjhdsjfgsdjhgs</Text>
-            </View>
-        );
-    }
-}
+export default Profile = createStackNavigator(
+    //create navigation options
+    {
+        First:{screen: MainActivity,
+            navigationOptions: {
+                header: null,
+            }},
+        BankRefund:{screen:BankRefund,
+            navigationOptions: {
+                header: null,
+            }},
+        MobileRefund:{screen:MobileRefund,
+            navigationOptions: {
+                header: null,
+            }},
 
+
+    },
+);
