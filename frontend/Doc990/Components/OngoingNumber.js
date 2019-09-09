@@ -65,52 +65,57 @@ export default class OngoingNumber extends Component {
 					<Image source={require('../assets/Home/Logo.png')} style={styles.Logo} resizeMode={'contain'} />
 				</View>
 
-				<View style={styles.View}>
-					<KeyboardAwareScrollView>
+				
+					<View style={styles.View}>
 						<Text style={styles.TextHeading}>SEARCH ONGOING NUMBER</Text>
-						
+
 						<Text style={{ color: 'red', textAlign: 'center' }}>{this.state.Error}</Text>
-						<View style={styles.TextInputBox}>
-							<Image
-								source={require('../assets/man.png')}
-								style={styles.InputBoxIcon}
-								resizeMode={'stretch'}
+						<KeyboardAwareScrollView>
+							<View style={styles.TextInputBox}>
+								<Image
+									source={require('../assets/man.png')}
+									style={styles.InputBoxIcon}
+									resizeMode={'stretch'}
+								/>
+								<TextInput
+									style={styles.InputBox}
+									onChangeText={Number => this.setState({ Number })}
+									placeholder={' Reference Number - Required'}
+									placeholderTextColor="#000"
+								/>
+							</View>
+
+							<Dropdown
+								style={{ marginLeft: Dimensions.get('window').width / 15, borderRadius: 8 }}
+								placeholder="select hospital"
+								// placeholderTextColor="black"
+								placeholderTextColor="black"
+								backgroundColor="white"
+								color="black"
+								itemTextStyle={{ textColor: 'black' }}
+								textAlign="center"
+								data={data}
+								onChangeText={hospital => this.setState({ hospital })}
 							/>
-							<TextInput
-								style={styles.InputBox}
-								onChangeText={Number => this.setState({ Number })}
-								placeholder={' Reference Number - Required'}
-								placeholderTextColor="#000"
-							/>
-						</View>
-						<Dropdown
-							style={{ marginLeft: Dimensions.get('window').width / 15, borderRadius: 8 }}
-							placeholder="select hospital"
-							// placeholderTextColor="black"
-							placeholderTextColor="black"
-							backgroundColor="white"
-							color="black"
-							itemTextStyle={{ textColor: 'black' }}
-							textAlign="center"
-							data={data}
-							onChangeText={hospital => this.setState({ hospital })}
-						/>
-						{/* <Image
+							{/* <Image
 							source={require('../assets/man.png')}
 							style={styles.InputBoxIcon}
 							resizeMode={'stretch'}
-            /> */}
-						<View style={styles.SearchBtn}>
-							<Button
-								title={'Search'}
-								onPress={() => {
-									this.SearchNumber();
-								}}
-								color={'#000000'}
-							/>
-						</View>
-					</KeyboardAwareScrollView>
-				</View>
+
+			/> */}
+
+							<View style={styles.SearchBtn}>
+								<Button
+									title={'Search'}
+									onPress={() => {
+										this.SearchNumber();
+									}}
+									color={'#000000'}
+								/>
+							</View>
+						</KeyboardAwareScrollView>
+					</View>
+			
 			</ImageBackground>
 		);
 	}
