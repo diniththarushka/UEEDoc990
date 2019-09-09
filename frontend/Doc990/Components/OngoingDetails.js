@@ -126,7 +126,7 @@ export default class OngoingDetails extends Component {
 					<Image source={require('../assets/Home/Logo.png')} style={styles.Logo} resizeMode={'contain'} />
 				</View>
 				<View style={styles.View}>
-					<Text style={styles.TextHeading} style={{ textAlign: 'center'}}>
+					<Text style={styles.TextHeading}>
 						Ongoing Number
 					</Text>
 					<View style={styles.container}>
@@ -182,7 +182,7 @@ const styles = {
 		backgroundColor: 'black',
 		opacity: 0.5,
 		width: (Dimensions.get('window').width / 4) * 3,
-		height: Dimensions.get('window').height / 2.7,
+		height: Dimensions.get('window').height / 3,
 		borderColor: '#ffffff',
 		borderRadius: 8,
 		borderWidth: 0.5,
@@ -190,7 +190,7 @@ const styles = {
 		marginLeft: Dimensions.get('window').width / 4 - Dimensions.get('window').width / 8,
 	},
 	TextHeading: {
-		paddingLeft: Dimensions.get('window').width / 10,
+		// paddingLeft: Dimensions.get('window').width / 5,
 		color: 'white',
 		fontWeight: 'bold',
 		// fontFamily:'sans-serif',
