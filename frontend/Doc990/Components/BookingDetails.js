@@ -35,6 +35,9 @@ export default class BookingDetails extends Component {
 	SearchNumber = () => {
 		this.props.navigation.navigate('newBookings');
 	};
+	newBookings = () => {
+		this.props.navigation.navigate('newBookings');
+	};
 	render() {
 		const state = this.state;
 		// const tableData = [];
@@ -49,6 +52,23 @@ export default class BookingDetails extends Component {
 		return (
 			<ImageBackground source={require('../assets/darkned.jpg')} style={styles.Background} resizeMode={'stretch'}>
 				<View style={styles.container}>
+					<TouchableOpacity
+						onPress={this.newBookings}
+						style={{
+							backgroundColor: '#000000',
+							padding: 10,
+							borderRadius: 8,
+							opacity: 0.5,
+							width: (Dimensions.get('window').width / 4) * 1.5,
+
+							marginLeft: (Dimensions.get('window').width / 4) * 2.1,
+						}}
+					>
+						<Text style={{ color: '#f5f5dc', textAlign: 'center', fontWeight: 'bold' }}>
+							{' '}
+							+ NEW BOOKINGS
+						</Text>
+					</TouchableOpacity>
 					<Text style={{ textAlign: 'center', fontSize: 25, marginTop: 45 }}>MY BOOKINGS</Text>
 
 					<ScrollView horizontal={true}>
@@ -73,29 +93,6 @@ export default class BookingDetails extends Component {
 							</ScrollView>
 						</View>
 					</ScrollView>
-				</View>
-
-				<TouchableOpacity
-					onPress={this.newBookings}
-					style={{
-						backgroundColor: '#000000',
-						padding: 10,
-						borderRadius: 8,
-						opacity: 0.5,
-						width: (Dimensions.get('window').width / 4) * 3.5,
-						marginLeft: 20,
-					}}
-				>
-					<Text style={{ color: '#f5f5dc', textAlign: 'center' }}>New Bookings</Text>
-				</TouchableOpacity>
-				<View style={styles.SearchBtn}>
-					<Button
-						title={'Search'}
-						onPress={() => {
-							this.SearchNumber();
-						}}
-						color={'#000000'}
-					/>
 				</View>
 			</ImageBackground>
 		);
