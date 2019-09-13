@@ -130,7 +130,7 @@ export default class Home extends Component {
 							<TextInput
 								style={styles.InputBox}
 								onChangeText={Number => this.setState({ Number })}
-								placeholder={' Reference Number - Required'}
+								placeholder={'| Reference Number - Required'}
 								placeholderTextColor="#000"
 								ref={component => (this._textInput1 = component)}
 								clearButtonMode="always"
@@ -146,7 +146,7 @@ export default class Home extends Component {
 							<TextInput
 								style={styles.InputBox}
 								onChangeText={nic => this.setState({ nic })}
-								placeholder={' NIC / Passport - Required'}
+								placeholder={'| NIC / Passport - Required'}
 								placeholderTextColor="#000"
 								ref={component => (this._textInput2 = component)}
 								clearButtonMode="always"
