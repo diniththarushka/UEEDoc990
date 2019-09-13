@@ -72,6 +72,8 @@ export default class MobileRefund extends Component{
 
     MobileRefund(){
 
+        this.clearText();
+
         this.toggleModal();
         console.log("herer");
         axios.get('http://localhost:4000/doctor').then((res)=>{
@@ -82,6 +84,19 @@ export default class MobileRefund extends Component{
         });
         console.log('Button Click: '+this.state.RefundName);
     }
+
+    clearText(){
+        this._textInput1.setNativeProps({text:''});
+        this._textInput2.setNativeProps({text:''});
+        this._textInput3.setNativeProps({text:''});
+
+        setTimeout( ()=> {
+            this._textInput1.setNativeProps({text:''});
+            this._textInput2.setNativeProps({text:''});
+            this._textInput3.setNativeProps({text:''});
+        },3);
+    }
+
 
     render() {
         const { navigate } = this.props.navigation;
@@ -100,7 +115,7 @@ export default class MobileRefund extends Component{
         return(
             <ImageBackground source={require('../assets/darkned.jpg')} style={styles.Background} resizeMode={'stretch'}>
 
-                <KeyboardAwareScrollView>
+                {/*<KeyboardAwareScrollView>*/}
 
                 <View style= {styles.View1}>
 
@@ -171,24 +186,24 @@ export default class MobileRefund extends Component{
                 </View>
 
                 <View style={styles.View}>
+                    <KeyboardAwareScrollView>
                     <Text style={styles.TextHeading}>Mobile Refund</Text>
 
                     <Text style={styles.TextHeading3}>Reference Number</Text>
                     <View style={styles.TextInputBox2}>
-
-                        <TextInput style={styles.InputBox} onChange={this.onChangeRefNo} value={this.state.refNumber} placeholder={'Reference Number'} placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeRefNo} value={this.state.refNumber} placeholder={'Reference Number'}  ref={component => (this._textInput1 = component)} clearButtonMode = "always"  placeholderTextColor="#000"/>
                     </View>
 
-                    <Text style={styles.TextHeading3}>Mobile NO</Text>
+                    <Text style={styles.TextHeading3}>Mobile Number</Text>
                     <View style={styles.TextInputBox2}>
 
-                        <TextInput style={styles.InputBox} onChange={this.onChangeMobileNo} value={this.state.MobileNo} placeholder={'Mobile Number'} placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeMobileNo} value={this.state.MobileNo} placeholder={'Mobile Number'}   ref={component => (this._textInput2 = component)} clearButtonMode = "always" placeholderTextColor="#000"/>
                     </View>
 
                     <Text style={styles.TextHeading3}>Refund Remarks</Text>
                     <View style={styles.TextInputBox2}>
 
-                        <TextInput style={styles.InputBox} onChange={this.onChangeRefundRemarks} value={this.state.RefundRemarks} placeholder={'Refund Remarks'} placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeRefundRemarks} value={this.state.RefundRemarks} placeholder={'Refund Remarks'}  ref={component => (this._textInput3 = component)} clearButtonMode = "always"  placeholderTextColor="#000"/>
                     </View>
 
 
@@ -196,10 +211,12 @@ export default class MobileRefund extends Component{
                     <View style={styles.SearchBtn}>
                         <Button color="#000000"  title={'Submit'} onPress={()=>{this.MobileRefund()}}/>
                     </View>
+                    </KeyboardAwareScrollView>
 
                 </View>
+                {/*</KeyboardAwareScrollView>*/}
 
-                </KeyboardAwareScrollView>
+
             </ImageBackground>
 
         );
@@ -282,7 +299,7 @@ const styles={
         fontWeight:'bold',
         fontFamily:'Arial',
         textDecorationLine: 'underline',
-        fontSize:15,
+        fontSize:16,
         marginTop:Dimensions.get('window').height/80,
     },
     TextInputBox:{
@@ -300,7 +317,7 @@ const styles={
     },
     TextInputBox2:{
         height:Dimensions.get('window').height/25,
-        marginTop:Dimensions.get('window').height/15000,
+        marginTop:Dimensions.get('window').height/150,
         marginLeft:(Dimensions.get('window').width/15),
         width:(Dimensions.get('window').width/4)*2.4,
         borderColor: 'black',
@@ -313,7 +330,9 @@ const styles={
     },
     InputBox:{
         position:'absolute',
-        width:(Dimensions.get('window').width/4)*2,
+        textAlign: 'center',
+        width:(Dimensions.get('window').width/4)*2.4,
+        height:Dimensions.get('window').height/25,
         color:'black',
         marginTop:0,
         // marginLeft:(Dimensions.get('window').width/4)*2.4 - (Dimensions.get('window').width/4)*2

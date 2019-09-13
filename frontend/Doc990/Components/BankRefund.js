@@ -105,6 +105,9 @@ export default class BankRefund extends Component{
         //     }
         // });
         // console.log('Button Click: '+this.state.RefNumber);
+
+
+
         this.toggleModal();
         console.log("herer");
         axios.get('http://localhost:4000/doctor').then((res)=>{
@@ -114,6 +117,26 @@ export default class BankRefund extends Component{
             console.error(err);
         });
         console.log('Button Click: '+this.state.RefundName);
+
+        this.clearText();
+    }
+
+    clearText(){
+        this._textInput1.setNativeProps({text:''});
+        this._textInput2.setNativeProps({text:''});
+        this._textInput3.setNativeProps({text:''});
+        this._textInput4.setNativeProps({text:''});
+        this._textInput5.setNativeProps({text:''});
+        this._textInput6.setNativeProps({text:''});
+
+        setTimeout( ()=> {
+            this._textInput1.setNativeProps({text:''});
+            this._textInput2.setNativeProps({text:''});
+            this._textInput3.setNativeProps({text:''});
+            this._textInput4.setNativeProps({text:''});
+            this._textInput5.setNativeProps({text:''});
+            this._textInput6.setNativeProps({text:''});
+        },3);
     }
 
     render() {
@@ -209,34 +232,34 @@ export default class BankRefund extends Component{
 
                     <Text style={styles.TextHeading3}>Reference Number</Text>
                     <View style={styles.TextInputBox2}>
-                        <TextInput style={styles.InputBox} onChange={this.onChangeName} placeholder={'Reference Number'} placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeName} placeholder={'Reference Number'}  ref={component => (this._textInput1 = component)}  clearButtonMode = "always"  placeholderTextColor="#000"/>
                     </View>
 
                     <Text style={styles.TextHeading3}>Account Holder Name</Text>
                     <View style={styles.TextInputBox2}>
                         {/* <Image source={require('../assets/Home/searchicon.png')} style={styles.InputBoxIcon} resizeMode={'stretch'}/> */}
-                        <TextInput style={styles.InputBox} onChange={this.onChangeAccountName} placeholder={'Account Holder Name'} placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeAccountName} placeholder={'Account Holder Name'}  ref={component => (this._textInput2 = component)} clearButtonMode = "always" placeholderTextColor="#000"/>
                     </View>
 
                     <Text style={styles.TextHeading3}>Account No</Text>
                     <View style={styles.TextInputBox2}>
                         {/* <Image source={require('../assets/Home/searchicon.png')} style={styles.InputBoxIcon} resizeMode={'stretch'}/> */}
-                        <TextInput style={styles.InputBox} onChange={this.onChangeBankAccountNo} placeholder={'Bank Acccount No'} placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeBankAccountNo} placeholder={'Bank Acccount No'}  ref={component => (this._textInput3 = component)} clearButtonMode = "always"  placeholderTextColor="#000"/>
                     </View>
 
                     <Text style={styles.TextHeading3}>Bank Name</Text>
                     <View style={styles.TextInputBox2}>
-                        <TextInput style={styles.InputBox} onChange={this.onChangeBankName} placeholder={'Bank Name'} placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeBankName} placeholder={'Bank Name'}  ref={component => (this._textInput4 = component)} clearButtonMode = "always"  placeholderTextColor="#000"/>
                     </View>
 
                     <Text style={styles.TextHeading3}>Bank Branch</Text>
                     <View style={styles.TextInputBox2}>
-                        <TextInput style={styles.InputBox} onChange={this.onChangeBranchName} placeholder={'Bank Branch'} placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeBranchName} placeholder={'Bank Branch'}  ref={component => (this._textInput5 = component)}  clearButtonMode = "always" placeholderTextColor="#000"/>
                     </View>
 
                     <Text style={styles.TextHeading3}>Refund Remarks</Text>
                     <View style={styles.TextInputBox2}>
-                        <TextInput style={styles.InputBox} onChange={this.onChangeRefundRemarks} placeholder={'Refund Remarks'} placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeRefundRemarks} placeholder={'Refund Remarks'}  ref={component => (this._textInput6 = component)} clearButtonMode = "always"  placeholderTextColor="#000"/>
                     </View>
 
 
@@ -334,7 +357,7 @@ const styles={
         fontWeight:'bold',
         fontFamily:'Arial',
         textDecorationLine: 'underline',
-        fontSize:15,
+        fontSize:16,
         marginTop:Dimensions.get('window').height/80,
     },
     TextInputBox:{
@@ -352,7 +375,7 @@ const styles={
     },
     TextInputBox2:{
         height:Dimensions.get('window').height/25,
-        marginTop:Dimensions.get('window').height/15000,
+        marginTop:Dimensions.get('window').height/250,
         marginLeft:(Dimensions.get('window').width/15),
         width:(Dimensions.get('window').width/4)*2.4,
         borderColor: 'black',
@@ -365,7 +388,9 @@ const styles={
     },
     InputBox:{
         position:'absolute',
-        width:(Dimensions.get('window').width/4)*2,
+        textAlign: 'center',
+        width:(Dimensions.get('window').width/4)*2.4,
+        height:Dimensions.get('window').height/25,
         color:'black',
         marginTop:0,
         // marginLeft:(Dimensions.get('window').width/4)*2.4 - (Dimensions.get('window').width/4)*2
@@ -376,7 +401,7 @@ const styles={
     },
     SearchBtn:{
         marginLeft:((Dimensions.get('window').width/4)*3 - (Dimensions.get('window').width/4)*2)/2,
-        marginTop:Dimensions.get('window').height/22,
+        marginTop:Dimensions.get('window').height/55,
         width:(Dimensions.get('window').width/4)*2,
         backgroundColor:'white',
         borderWidth: 1,

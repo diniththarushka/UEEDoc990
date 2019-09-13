@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import axios from 'axios/index';
 import {Text, View,ImageBackground,Dimensions,TextInput,Image,Button,Modal, TouchableHighlight, TouchableOpacity,Alert,KeyboardAvoidingView,ScrollView} from "react-native";
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 const Serv_PORT=4000;
 
 export default class RefundSearch extends Component{
@@ -33,6 +33,7 @@ export default class RefundSearch extends Component{
         this.bankRefund = this.bankRefund.bind(this);
         this.mobileRefund = this.mobileRefund.bind(this);
         this.SearchRefund = this.SearchRefund.bind(this);
+
     }
 
 
@@ -82,6 +83,9 @@ export default class RefundSearch extends Component{
             this.setState({Error:"The Reference Field is required" });
         }else if(NicOrPassport == '' ) {
             this.setState({Error:"The NIC OR PASSPORT Field is required"});
+        } else {
+            this.clearText();
+
         }
 
 
@@ -126,6 +130,16 @@ export default class RefundSearch extends Component{
         });
         console.log('Button Click: '+this.state.RefundName);
 
+    }
+
+    clearText(){
+        this._textInput1.setNativeProps({text:''});
+        this._textInput2.setNativeProps({text:''});
+
+        setTimeout( ()=> {
+            this._textInput1.setNativeProps({text:''});
+            this._textInput2.setNativeProps({text:''});
+        },3);
     }
 
     render() {
@@ -257,26 +271,25 @@ export default class RefundSearch extends Component{
 
                 <View style={styles.View}>
 
-
+                    <KeyboardAwareScrollView>
                     <Text style={styles.TextHeading}>Refund Search</Text>
                     <Text style={styles.TextHeading3}>Reference Number</Text>
                     <View style={styles.TextInputBox}>
                         <Image source={require('../assets/Home/searchicon.png')} style={styles.InputBoxIcon} resizeMode={'stretch'}/>
-                        <TextInput style={styles.InputBox} onChange={this.onChangeRefNumber} value={this.state.RefNumber} placeholder={'Reference Number'} placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeRefNumber} value={this.state.RefNumber} placeholder={'Reference Number'} ref={component => (this._textInput1 = component)} clearButtonMode = "always" placeholderTextColor="#000"/>
                     </View>
 
                     <Text style={styles.TextHeading3}>NIC/Passport</Text>
                     <View style={styles.TextInputBox}>
                         <Image source={require('../assets/Home/searchicon.png')} style={styles.InputBoxIcon} resizeMode={'stretch'}/>
-                        <TextInput style={styles.InputBox} onChange={this.onChangeNicOrPassport} value={this.state.NicOrPassport} placeholder={'NIC/Passport'} placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeNicOrPassport} value={this.state.NicOrPassport} placeholder={'NIC/Passport'} ref={component => (this._textInput2 = component)} clearButtonMode = "always" placeholderTextColor="#000"/>
                     </View>
 
                     <View style={styles.SearchBtn}>
                         <Button color="#000000" title={'Search Refunds'} onPress={()=>{this.SearchRefund()}}/>
                     </View>
-
+                    </KeyboardAwareScrollView>
                 </View>
-
 
 
             </ImageBackground>
@@ -355,7 +368,7 @@ const styles={
         fontWeight:'bold',
         fontFamily:'Arial',
         textDecorationLine: 'underline',
-        fontSize:20,
+        fontSize:18,
         marginTop:Dimensions.get('window').height/50,
 
     },
@@ -381,6 +394,7 @@ const styles={
     InputBox:{
         position:'absolute',
         width:(Dimensions.get('window').width/4)*2,
+        height:Dimensions.get('window').height/25,
         color:'black',
         marginTop:0,
         marginLeft:(Dimensions.get('window').width/4)*2.4 - (Dimensions.get('window').width/4)*2
