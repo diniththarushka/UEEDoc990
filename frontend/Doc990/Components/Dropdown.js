@@ -69,6 +69,8 @@ export default class Example extends Component {
 							onChangeText={Number => this.setState({ Number })}
 							placeholder={' Reference Number - Required'}
 							placeholderTextColor="#000"
+							clearButtonMode='always'
+							
 						/>
 					</View>
 					<Dropdown
