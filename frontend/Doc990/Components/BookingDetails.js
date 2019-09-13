@@ -8,6 +8,7 @@ import {
 	ImageBackground,
 	Dimensions,
 	TouchableOpacity,
+	Image,
 } from 'react-native';
 import { Table, TableWrapper, Row, Rows } from 'react-native-table-component';
 
@@ -51,10 +52,12 @@ export default class BookingDetails extends Component {
 
 		return (
 			<ImageBackground source={require('../assets/darkned.jpg')} style={styles.Background} resizeMode={'stretch'}>
-				<View style={styles.container}>
+				{/* <View style={styles.container}> */}
+				<View>
 					<TouchableOpacity
 						onPress={this.newBookings}
 						style={{
+							marginTop: Dimensions.get('window').width / 6,
 							backgroundColor: '#000000',
 							padding: 10,
 							borderRadius: 8,
@@ -69,8 +72,14 @@ export default class BookingDetails extends Component {
 							+ NEW BOOKINGS
 						</Text>
 					</TouchableOpacity>
-					<Text style={{ textAlign: 'center', fontSize: 25, marginTop: 45 }}>MY BOOKINGS</Text>
-
+				</View>
+				<View>
+					<Image source={require('../assets/jj.png')} style={styles.InputBoxIcon} resizeMode={'stretch'} />
+					<Text style={{ textAlign: 'center', fontSize: 25, marginTop: 20 }} resizeMode={'stretch'}>
+						MY BOOKINGS
+					</Text>
+				</View>
+				<View style={styles.container}>
 					<ScrollView horizontal={true}>
 						<View>
 							<Table borderStyle={{ borderWidth: 1, borderColor: '#C1C0B9' }}>
@@ -94,6 +103,7 @@ export default class BookingDetails extends Component {
 						</View>
 					</ScrollView>
 				</View>
+				{/* </View> */}
 			</ImageBackground>
 		);
 	}
@@ -105,7 +115,13 @@ const styles = StyleSheet.create({
 		height: Dimensions.get('window').height,
 		// backgroundColor : 'black'
 	},
-	container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+	InputBoxIcon: {
+		height: Dimensions.get('window').height / 25,
+		width: Dimensions.get('window').height / 25,
+		marginLeft: Dimensions.get('window').width / 2.2,
+		marginTop: 20,
+	},
+	container: { flex: 1, padding: 16, paddingTop: 30 },
 	header: { height: 50, backgroundColor: '#537791' },
 	text: { textAlign: 'center', fontWeight: '100' },
 	dataWrapper: { marginTop: -1 },
