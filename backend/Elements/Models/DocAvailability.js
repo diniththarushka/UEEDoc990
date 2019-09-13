@@ -19,6 +19,9 @@ const DoctorAvailabilitySchema = new mongoose.Schema({
     EndTime:{
         type:Date,
     },
+    Appointments:{
+        type:Number,
+    },
     MaxAppointments:{
         type:Number,
         required:true
