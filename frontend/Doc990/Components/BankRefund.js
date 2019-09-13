@@ -14,27 +14,26 @@ export default class BankRefund extends Component{
         this.state={
             resultsArr:[],
             results:false,
-            // DoctorName:'',
-            // DoctorSpec:'',
-
-
-            RefNumber:'',
-            NicOrPassport:''
+            name:'',
+            accountName:'',
+            accountNo:'',
+            bankName:'',
+            branchName:'',
+            refundRemarks:''
 
         };
 
-        // this.onChangeName = this.onChangeName.bind(this);
-        // this.toggleModal = this.toggleModal.bind(this);
-        // this.SearchDoctor = this.SearchDoctor.bind(this);
-
-        this.onChangeRefNumber = this.onChangeRefNumber.bind(this);
-        this.onChangeNicOrPassport = this.onChangeNicOrPassport.bind(this);
+        this.onChangeName = this.onChangeName.bind(this);
+        this.onChangeAccountName = this.onChangeAccountName.bind(this);
+        this.onChangeBankAccountNo = this.onChangeBankAccountNo.bind(this);
+        this.onChangeBankName = this.onChangeBankName.bind(this);
+        this.onChangeBranchName = this.onChangeBranchName.bind(this);
+        this.onChangeRefundRemarks = this.onChangeRefundRemarks.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.bankRefund = this.bankRefund.bind(this);
         this.SearchRefund = this.SearchRefund.bind(this);
         this.MobileRefund = this.MobileRefund.bind(this);
     }
-
 
 
     toggleModal(){
@@ -44,24 +43,44 @@ export default class BankRefund extends Component{
     }
 
 
-
-    // onChangeName(e){
-    //     this.setState({
-    //         DoctorName:e.nativeEvent.text
-    //     })
-    // }
-
-    onChangeRefNumber(e){
+    onChangeName(e){
         this.setState({
-            RefNumber:e.nativeEvent.text,
+            name:e.nativeEvent.text,
         })
     }
 
-    onChangeNicOrPassport(e){
+    onChangeAccountName(e){
         this.setState({
-            NicOrPassport:e.nativeEvent.text,
+            accountName:e.nativeEvent.text,
         })
     }
+
+
+    onChangeBankAccountNo(e){
+        this.setState({
+            accountNo:e.nativeEvent.text
+        })
+    }
+
+    onChangeBankName(e){
+        this.setState({
+            bankName:e.nativeEvent.text,
+        })
+    }
+
+    onChangeBranchName(e){
+        this.setState({
+            branchName:e.nativeEvent.text,
+        })
+    }
+
+
+    onChangeRefundRemarks(e){
+        this.setState({
+            refundRemarks:e.nativeEvent.text
+        })
+    }
+
 
     SearchRefund = () => {
         this.props.navigation.navigate('First');
@@ -70,8 +89,6 @@ export default class BankRefund extends Component{
     MobileRefund= () => {
         this.props.navigation.navigate('MobileRefund');
     };
-
-
 
 
 
@@ -107,18 +124,35 @@ export default class BankRefund extends Component{
         // console.log('Button Click: '+this.state.RefNumber);
 
 
+        const { name,accountName,accountNo,bankName,branchName,refundRemarks } = this.state;
 
-        this.toggleModal();
-        console.log("herer");
-        axios.get('http://localhost:4000/doctor').then((res)=>{
-            console.log("herers");
-            console.log(res);
-        }).catch((err)=>{
-            console.error(err);
-        });
-        console.log('Button Click: '+this.state.RefundName);
+        if (name == '') {
+            this.setState({Error: "Please Fill all the Fields!"});
+        } else if ( accountName == '') {
+            this.setState({Error: "Please Fill all the Fields!"});
+        }   else if (accountNo == ''){
+            this.setState({Error: "Please Fill all the Fields!"});
+        } else if (bankName == ''){
+            this.setState({Error: "Please Fill all the Fields!"});
+        } else if (branchName == '') {
+            this.setState({Error: "Please Fill all the Fields!"});
+        } else if (refundRemarks == ''){
+            this.setState({Error: "Please Fill all the Fields!"});
+        } else {
 
-        this.clearText();
+
+            this.toggleModal();
+            console.log("herer");
+            axios.get('http://localhost:4000/doctor').then((res) => {
+                console.log("herers");
+                console.log(res);
+            }).catch((err) => {
+                console.error(err);
+            });
+            console.log('Button Click: ' + this.state.RefundName);
+
+            this.clearText();
+        }
     }
 
     clearText(){
@@ -128,6 +162,7 @@ export default class BankRefund extends Component{
         this._textInput4.setNativeProps({text:''});
         this._textInput5.setNativeProps({text:''});
         this._textInput6.setNativeProps({text:''});
+        this.setState({Error:"" })
 
         setTimeout( ()=> {
             this._textInput1.setNativeProps({text:''});
@@ -136,11 +171,12 @@ export default class BankRefund extends Component{
             this._textInput4.setNativeProps({text:''});
             this._textInput5.setNativeProps({text:''});
             this._textInput6.setNativeProps({text:''});
+            this.setState({Error:"" })
         },3);
     }
 
     render() {
-        const { navigate } = this.props.navigation;
+        // const { navigate } = this.props.navigation;
         let Results=this.state.resultsArr.map((result,key)=>{
             return<View style={Result.ResultContainer} key={key}>
                 <View>
@@ -156,7 +192,6 @@ export default class BankRefund extends Component{
         return(
             <ImageBackground source={require('../assets/darkned.jpg')} style={styles.Background} resizeMode={'stretch'}>
 
-                {/*<ScrollView style = {{flex:1}} ref = 'scroll'>*/}
                 <View style= {styles.View1}>
 
 
@@ -228,38 +263,38 @@ export default class BankRefund extends Component{
 
                 <View style={styles.View}>
                     <KeyboardAwareScrollView>
+                        <Text style={{color:'red',textAlign: 'center'}}>{this.state.Error}</Text>
+
                     <Text style={styles.TextHeading}>Bank Refund</Text>
 
                     <Text style={styles.TextHeading3}>Reference Number</Text>
                     <View style={styles.TextInputBox2}>
-                        <TextInput style={styles.InputBox} onChange={this.onChangeName} placeholder={'Reference Number'}  ref={component => (this._textInput1 = component)}  clearButtonMode = "always"  placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeName} value={this.state.refNumber} placeholder={'Reference Number'}  ref={component => (this._textInput1 = component)}  clearButtonMode = "always"  placeholderTextColor="#000"/>
                     </View>
 
                     <Text style={styles.TextHeading3}>Account Holder Name</Text>
                     <View style={styles.TextInputBox2}>
-                        {/* <Image source={require('../assets/Home/searchicon.png')} style={styles.InputBoxIcon} resizeMode={'stretch'}/> */}
-                        <TextInput style={styles.InputBox} onChange={this.onChangeAccountName} placeholder={'Account Holder Name'}  ref={component => (this._textInput2 = component)} clearButtonMode = "always" placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeAccountName} value={this.state.refNumber} placeholder={'Account Holder Name'}  ref={component => (this._textInput2 = component)} clearButtonMode = "always" placeholderTextColor="#000"/>
                     </View>
 
                     <Text style={styles.TextHeading3}>Account No</Text>
                     <View style={styles.TextInputBox2}>
-                        {/* <Image source={require('../assets/Home/searchicon.png')} style={styles.InputBoxIcon} resizeMode={'stretch'}/> */}
-                        <TextInput style={styles.InputBox} onChange={this.onChangeBankAccountNo} placeholder={'Bank Acccount No'}  ref={component => (this._textInput3 = component)} clearButtonMode = "always"  placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeBankAccountNo} value={this.state.refNumber} placeholder={'Bank Acccount No'}  ref={component => (this._textInput3 = component)} clearButtonMode = "always"  placeholderTextColor="#000"/>
                     </View>
 
                     <Text style={styles.TextHeading3}>Bank Name</Text>
                     <View style={styles.TextInputBox2}>
-                        <TextInput style={styles.InputBox} onChange={this.onChangeBankName} placeholder={'Bank Name'}  ref={component => (this._textInput4 = component)} clearButtonMode = "always"  placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeBankName} value={this.state.refNumber} placeholder={'Bank Name'}  ref={component => (this._textInput4 = component)} clearButtonMode = "always"  placeholderTextColor="#000"/>
                     </View>
 
                     <Text style={styles.TextHeading3}>Bank Branch</Text>
                     <View style={styles.TextInputBox2}>
-                        <TextInput style={styles.InputBox} onChange={this.onChangeBranchName} placeholder={'Bank Branch'}  ref={component => (this._textInput5 = component)}  clearButtonMode = "always" placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeBranchName} value={this.state.refNumber} placeholder={'Bank Branch'}  ref={component => (this._textInput5 = component)}  clearButtonMode = "always" placeholderTextColor="#000"/>
                     </View>
 
                     <Text style={styles.TextHeading3}>Refund Remarks</Text>
                     <View style={styles.TextInputBox2}>
-                        <TextInput style={styles.InputBox} onChange={this.onChangeRefundRemarks} placeholder={'Refund Remarks'}  ref={component => (this._textInput6 = component)} clearButtonMode = "always"  placeholderTextColor="#000"/>
+                        <TextInput style={styles.InputBox} onChange={this.onChangeRefundRemarks} value={this.state.refNumber} placeholder={'Refund Remarks'}  ref={component => (this._textInput6 = component)} clearButtonMode = "always"  placeholderTextColor="#000"/>
                     </View>
 
 
@@ -270,7 +305,7 @@ export default class BankRefund extends Component{
                     </KeyboardAwareScrollView>
                 </View>
 
-                {/*</ScrollView>*/}
+
             </ImageBackground>
 
         );
@@ -339,7 +374,7 @@ const styles={
         fontFamily:'Arial',
         textDecorationLine: 'underline',
         fontSize:20,
-        marginTop:Dimensions.get('window').height/40,
+        marginTop:Dimensions.get('window').height/100,
     },
     TextHeading2:{
         paddingLeft:(Dimensions.get('window').width/6),
@@ -401,7 +436,7 @@ const styles={
     },
     SearchBtn:{
         marginLeft:((Dimensions.get('window').width/4)*3 - (Dimensions.get('window').width/4)*2)/2,
-        marginTop:Dimensions.get('window').height/55,
+        marginTop:Dimensions.get('window').height/70,
         width:(Dimensions.get('window').width/4)*2,
         backgroundColor:'white',
         borderWidth: 1,

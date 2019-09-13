@@ -5,17 +5,13 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 const Serv_PORT=4000;
 
 export default class RefundSearch extends Component{
-    // static navigationOptions = {
-    //     title : 'Refund',
-    // };
+
     constructor(props){
         super(props);
 
         this.state={
             resultsArr:[],
             results:false,
-            // DoctorName:'',
-            // DoctorSpec:'',
 
 
             RefNumber:'',
@@ -23,9 +19,7 @@ export default class RefundSearch extends Component{
 
         };
 
-        // this.onChangeName = this.onChangeName.bind(this);
-        // this.toggleModal = this.toggleModal.bind(this);
-        // this.SearchDoctor = this.SearchDoctor.bind(this);
+
 
         this.onChangeRefNumber = this.onChangeRefNumber.bind(this);
         this.onChangeNicOrPassport = this.onChangeNicOrPassport.bind(this);
@@ -46,11 +40,6 @@ export default class RefundSearch extends Component{
 
 
 
-    // onChangeName(e){
-    //     this.setState({
-    //         DoctorName:e.nativeEvent.text
-    //     })
-    // }
 
     onChangeRefNumber(e){
         this.setState({
@@ -80,11 +69,22 @@ export default class RefundSearch extends Component{
         const { RefNumber, NicOrPassport } = this.state;
 
         if(RefNumber == '' ){
-            this.setState({Error:"The Reference Field is required" });
+            this.setState({Error:"Please Fill all the Fields!" });
         }else if(NicOrPassport == '' ) {
-            this.setState({Error:"The NIC OR PASSPORT Field is required"});
+            this.setState({Error:"Please Fill all the Fields!"});
         } else {
             this.clearText();
+
+
+            this.toggleModal();
+            console.log("herer");
+            axios.get('http://localhost:4000/doctor').then((res)=>{
+                console.log("herers");
+                console.log(res);
+            }).catch((err)=>{
+                console.error(err);
+            });
+            console.log('Button Click: '+this.state.RefundName);
 
         }
 
@@ -120,25 +120,18 @@ export default class RefundSearch extends Component{
         // console.log('Button Click: '+this.state.RefNumber);
 
 
-        this.toggleModal();
-        console.log("herer");
-        axios.get('http://localhost:4000/doctor').then((res)=>{
-            console.log("herers");
-            console.log(res);
-        }).catch((err)=>{
-            console.error(err);
-        });
-        console.log('Button Click: '+this.state.RefundName);
 
     }
 
     clearText(){
         this._textInput1.setNativeProps({text:''});
         this._textInput2.setNativeProps({text:''});
+        this.setState({Error:"" })
 
         setTimeout( ()=> {
             this._textInput1.setNativeProps({text:''});
             this._textInput2.setNativeProps({text:''});
+            this.setState({Error:"" })
         },3);
     }
 
@@ -227,7 +220,7 @@ export default class RefundSearch extends Component{
                                         fontFamily:'Arial',
                                         fontSize:20,}}>Nawaloka Hospitals</Text>
                                     <Text style={Result.ResultText2}>Type = Channel Refund </Text>
-                                    <Text style={Result.ResultText2}>Refund Amount - Rs.2000</Text>
+                                    <Text style={Result.ResultText2}>Refund Amount = Rs.2000</Text>
                                     <Text style={Result.ResultText2}>Status = Refunded</Text>
 
                                 </View>
@@ -236,7 +229,7 @@ export default class RefundSearch extends Component{
                                         fontFamily:'Arial',
                                         fontSize:20,}}>Asiri Hospitals</Text>
                                     <Text style={Result.ResultText2}>Type = Channel Refund </Text>
-                                    <Text style={Result.ResultText2}>Refund Amount - Rs.1000</Text>
+                                    <Text style={Result.ResultText2}>Refund Amount = Rs.1000</Text>
                                     <Text style={Result.ResultText2}>Status = Refunded</Text>
 
                                 </View>
@@ -245,7 +238,7 @@ export default class RefundSearch extends Component{
                                         fontFamily:'Arial',
                                         fontSize:20,}}>Nawaloka Hospitals</Text>
                                     <Text style={Result.ResultText2}>Type = Channel Refund </Text>
-                                    <Text style={Result.ResultText2}>Refund Amount - Rs.1500</Text>
+                                    <Text style={Result.ResultText2}>Refund Amount = Rs.1500</Text>
                                     <Text style={Result.ResultText2}>Status = Refunded</Text>
 
                                 </View>
@@ -266,12 +259,15 @@ export default class RefundSearch extends Component{
 
                 <View style={styles.LogoContainer} >
                     <Image source={require('../assets/Home/Logo.png')} style={styles.Logo} resizeMode={'contain'}/>
-                    {/*<Text style={{color:'red',textAlign: 'center'}}>{this.state.Error}</Text>*/}
+
                 </View>
 
                 <View style={styles.View}>
 
+
                     <KeyboardAwareScrollView>
+
+                        <Text style={{color:'red',textAlign: 'center'}}>{this.state.Error}</Text>
                     <Text style={styles.TextHeading}>Refund Search</Text>
                     <Text style={styles.TextHeading3}>Reference Number</Text>
                     <View style={styles.TextInputBox}>

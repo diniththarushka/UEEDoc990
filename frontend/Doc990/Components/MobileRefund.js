@@ -15,7 +15,7 @@ export default class MobileRefund extends Component{
 
            refNumber:'',
             MobileNo:'',
-            BankNo:''
+            RefundRemarks:''
 
 
         };
@@ -70,30 +70,42 @@ export default class MobileRefund extends Component{
 
 
 
-    MobileRefund(){
+    MobileRefund() {
 
-        this.clearText();
+        const { refNumber, MobileNo,RefundRemarks } = this.state;
 
-        this.toggleModal();
-        console.log("herer");
-        axios.get('http://localhost:4000/doctor').then((res)=>{
-            console.log("herers");
-            console.log(res);
-        }).catch((err)=>{
-            console.error(err);
-        });
-        console.log('Button Click: '+this.state.RefundName);
+        if (refNumber == '') {
+            this.setState({Error: "Please Fill all the Fields!"});
+        } else if (MobileNo == '') {
+            this.setState({Error: "Please Fill all the Fields!"});
+        }   else if (RefundRemarks == ''){
+            this.setState({Error: "Please Fill all the Fields!"});
+        } else {
+            this.clearText();
+
+            this.toggleModal();
+            console.log("herer");
+            axios.get('http://localhost:4000/doctor').then((res) => {
+                console.log("herers");
+                console.log(res);
+            }).catch((err) => {
+                console.error(err);
+            });
+            console.log('Button Click: ' + this.state.RefundName);
+        }
     }
 
     clearText(){
         this._textInput1.setNativeProps({text:''});
         this._textInput2.setNativeProps({text:''});
         this._textInput3.setNativeProps({text:''});
+        this.setState({Error:"" })
 
         setTimeout( ()=> {
             this._textInput1.setNativeProps({text:''});
             this._textInput2.setNativeProps({text:''});
             this._textInput3.setNativeProps({text:''});
+            this.setState({Error:"" })
         },3);
     }
 
@@ -187,6 +199,7 @@ export default class MobileRefund extends Component{
 
                 <View style={styles.View}>
                     <KeyboardAwareScrollView>
+                        <Text style={{color:'red',textAlign: 'center'}}>{this.state.Error}</Text>
                     <Text style={styles.TextHeading}>Mobile Refund</Text>
 
                     <Text style={styles.TextHeading3}>Reference Number</Text>
