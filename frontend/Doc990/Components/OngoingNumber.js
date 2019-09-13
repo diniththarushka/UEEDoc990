@@ -23,13 +23,22 @@ export default class OngoingNumber extends Component {
 		} else if (hospital == '') {
 			this.setState({ Error: ' Select the hospital.' });
 		} else {
+			this.clearText();
 			this.setState({
-				hospital: '',
-				Number: '',
-			});
+				hospital : 'select hospital'
+			})
 			this.props.navigation.navigate('OngoingDetails');
 		}
 	};
+
+	clearText(){
+		this._textInput1.setNativeProps({ text: ' ' });
+	   
+		setTimeout(() => {
+		  this._textInput1.setNativeProps({ text: '' });
+		 
+		 },3);
+		}
 
 	render() {
 		let data = [
@@ -82,6 +91,8 @@ export default class OngoingNumber extends Component {
 									onChangeText={Number => this.setState({ Number })}
 									placeholder={' Reference Number - Required'}
 									placeholderTextColor="#000"
+									ref={component => this._textInput1 = component}
+									clearButtonMode='always'
 								/>
 							</View>
 
@@ -96,6 +107,8 @@ export default class OngoingNumber extends Component {
 								textAlign="center"
 								data={data}
 								onChangeText={hospital => this.setState({ hospital })}
+								ref={component => this._textInput2 = component}
+								
 							/>
 							{/* <Image
 							source={require('../assets/man.png')}
