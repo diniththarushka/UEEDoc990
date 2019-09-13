@@ -43,8 +43,6 @@ export default class Home extends Component {
 	//     })
 	// }
 	downloadReceipt() {
-		
-
 		const { Number, nic } = this.state;
 
 		if (Number == '') {
@@ -52,14 +50,19 @@ export default class Home extends Component {
 		} else if (nic == '') {
 			this.setState({ Error: 'The NIC or Passport field is required.' });
 		} else {
-			this.setState({
-				Number: '',
-				nic: '',
-			})
-			this.setState({ Error: ' Thank you,your booking receipt is dowmloaded' });
+			this.clearText();
+			this.setState({ Error: ' Thank you,your booking receipt is downloaded' });
 		}
 	}
 
+	clearText() {
+		this._textInput1.setNativeProps({ text: ' ' });
+		this._textInput2.setNativeProps({ text: ' ' });
+		setTimeout(() => {
+			this._textInput1.setNativeProps({ text: '' });
+			this._textInput2.setNativeProps({ text: '' });
+		}, 3);
+	}
 	newBookings = () => {
 		this.props.navigation.navigate('newBookings');
 	};
@@ -77,6 +80,7 @@ export default class Home extends Component {
 		//         </View>
 		//     </View>
 		// });
+
 		return (
 			<ImageBackground source={require('../assets/darkned.jpg')} style={styles.Background} resizeMode={'stretch'}>
 				{/* <View style={{marginTop:22}} >
@@ -115,46 +119,50 @@ export default class Home extends Component {
 				</View>
 				<View style={styles.View}>
 					<KeyboardAwareScrollView>
-					<Text style={styles.TextHeading}>DOWNLOAD BOOKING RECEIPT</Text>
-					<Text style={{ color: 'red', textAlign: 'center' }}>{this.state.Error}</Text>
-					<View style={styles.TextInputBox}>
-						<Image
-							source={require('../assets/man.png')}
-							style={styles.InputBoxIcon}
-							resizeMode={'stretch'}
-						/>
-						<TextInput
-							style={styles.InputBox}
-							onChangeText={Number => this.setState({ Number })}
-							placeholder={' Reference Number - Required'}
-							placeholderTextColor="#000"
-						/>
-					</View>
-					<View style={styles.TextInputBox}>
-						<Image
-							source={require('../assets/nic.png')}
-							style={styles.InputBoxIcon}
-							resizeMode={'stretch'}
-						/>
-						<TextInput
-							style={styles.InputBox}
-							onChangeText={nic => this.setState({ nic })}
-							placeholder={' NIC / Passport - Required'}
-							placeholderTextColor="#000"
-						/>
-					</View>
-					<View style={styles.SearchBtn}>
-						<Button
-							title={'SEARCH'}
-							onPress={() => {
-								this.downloadReceipt();
-							}}
-							color={'#000000'}
-						/>
-					</View>
+						<Text style={styles.TextHeading}>DOWNLOAD BOOKING RECEIPT</Text>
+						<Text style={{ color: 'red', textAlign: 'center' }}>{this.state.Error}</Text>
+						<View style={styles.TextInputBox}>
+							<Image
+								source={require('../assets/man.png')}
+								style={styles.InputBoxIcon}
+								resizeMode={'stretch'}
+							/>
+							<TextInput
+								style={styles.InputBox}
+								onChangeText={Number => this.setState({ Number })}
+								placeholder={' Reference Number - Required'}
+								placeholderTextColor="#000"
+								ref={component => (this._textInput1 = component)}
+								clearButtonMode="always"
+							/>
+						</View>
+						<View style={styles.TextInputBox}>
+							<Image
+								source={require('../assets/nic.png')}
+								style={styles.InputBoxIcon}
+								resizeMode={'stretch'}
+							/>
+
+							<TextInput
+								style={styles.InputBox}
+								onChangeText={nic => this.setState({ nic })}
+								placeholder={' NIC / Passport - Required'}
+								placeholderTextColor="#000"
+								ref={component => (this._textInput2 = component)}
+								clearButtonMode="always"
+							/>
+						</View>
+						<View style={styles.SearchBtn}>
+							<Button
+								title={'SEARCH'}
+								onPress={() => {
+									this.downloadReceipt();
+								}}
+								color={'#000000'}
+							/>
+						</View>
 					</KeyboardAwareScrollView>
 				</View>
-			
 			</ImageBackground>
 		);
 	}
@@ -219,7 +227,7 @@ const styles = {
 	InputBoxIcon: {
 		height: Dimensions.get('window').height / 28,
 		width: Dimensions.get('window').height / 25,
-		borderRadius :8
+		borderRadius: 8,
 	},
 	SearchBtn: {
 		backgroundColor: '#87cefa',
