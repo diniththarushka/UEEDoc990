@@ -7,11 +7,10 @@ import OngoingNumber from "../OngoingNumber";
 import Refund from "../Refund";
 import Profile from "../Profile";
 import About from "../About";
-import MobileRefund from "../MobileRefund";
-import BankRefund from "../BankRefund";
-
 
 import {Image} from "react-native";
+
+
 
 //NavBar Component
 const navOpt = {
@@ -50,28 +49,10 @@ const navOpt = {
         tabBarIcon:()=>{
             return <Image source={require('../../assets/Navbar/icrefund.png')} style={{width:24,height:24}}/>
         }
-    },
-    MobileRefund:{
-        title: 'MobileRefund',
-        tabBarIcon:()=>{
-            return <Image source={require('../../assets/Navbar/icrefund.png')} style={{width:24,height:24}}/>
-        }
-    },
-
-    BankRefund:{
-        title: 'BankRefund',
-        tabBarIcon:()=>{
-            return <Image source={require('../../assets/Navbar/icrefund.png')} style={{width:24,height:24}}/>
-        }
-    },
-
+    }
 };
 
-
 export default createMaterialBottomTabNavigator({
-
-    // MobileRefund : MobileRefund,
-    // BankRefund : BankRefund,
     Home:{screen:Home,
           navigationOptions: navOpt.Home
         },
@@ -89,13 +70,7 @@ export default createMaterialBottomTabNavigator({
     },
     About:{screen:About,
         navigationOptions: navOpt.About,
-    },
-    // MobileRefund:{screen:MobileRefund,
-    //     navigationOptions:navOpt.MobileRefund
-    // },
-    // BankRefund:{screen:BankRefund,
-    //     navigationOptions:navOpt.BankRefund
-    // }
+    }
 },{
     initialRouteName: 'Home',
     barStyle: { backgroundColor: '#000000' },

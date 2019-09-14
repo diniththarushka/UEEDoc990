@@ -53,11 +53,11 @@ router.get('/byName/:name',(req,res)=>{
                 })
             }
         }).catch((err)=>{
-            console.log("here1");
+            console.log(err);
             res.status(500).json({"message":"Can't find availability slots for Dr."+name});
         })
     }).catch((err)=>{
-        console.log("here2");
+        console.log(err);
         res.status(500).send({"msg":"Can't find Doctor for Dr."+name});
     })
 });
